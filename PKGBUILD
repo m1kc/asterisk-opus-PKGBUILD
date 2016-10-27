@@ -5,7 +5,7 @@
 
 pkgname=asterisk-opus
 _pkgname=asterisk
-pkgver=13.8.0
+pkgver=13.8.2
 pkgrel=1
 pkgdesc="Asterisk with patches for Opus support from https://github.com/seanbright/asterisk-opus"
 arch=('i686' 'x86_64')
@@ -22,7 +22,7 @@ source=(http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-$
 	${_pkgname}.tmpfile \
 	'git+https://github.com/seanbright/asterisk-opus.git')
 install=${_pkgname}.install
-sha256sums=('9953d3ea0023f7be0e14aed587725dacc199116c9453587093e1489073b53d5d'
+sha256sums=('79d097bf1a2c3fb8613b9db2504856742797acd5682fab845632972a9ab66e33'
             '94acb6e68424195a12fd9d406b3fb586f264a550e75801f6e020a86e800dd42c'
             'caa24cfec5c6b4f8cea385269e39557362acad7e2a552994c3bc24080e3bdd4e'
             '673c0c55bce8068c297f9cdd389402c2d5d5a25e2cf84732cb071198bd6fa78a'
@@ -139,6 +139,8 @@ backup=('etc/asterisk/acl.conf'
 	'etc/asterisk/xmpp.conf')
 
 prepare() {
+  cd "${srcdir}/asterisk-opus"
+  git checkout 058319d6ad464c79bbea71cf589883af62a18548
   cp -v "${srcdir}/asterisk-opus/formats/"* "${srcdir}/${_pkgname}-${pkgver}/formats/"
   cp -v "${srcdir}/asterisk-opus/codecs/"* "${srcdir}/${_pkgname}-${pkgver}/codecs/"
   cd "${srcdir}/${_pkgname}-${pkgver}"
